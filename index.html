@@ -2,21 +2,31 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <title>กำลังโหลด...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
+
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="logo.png">
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <meta name="theme-color" content="#f3f4f6">
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #f3f4f6; }
+        iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+    </style>
 </head>
 <body>
-    <p style="text-align:center; margin-top:20vh; font-family:sans-serif;">
-        กำลังพาท่านเข้าสู่ระบบ...<br>
-        <small>หากไม่ไปหน้าถัดไปอัตโนมัติ <a id="gasLink" href="#">คลิกที่นี่</a></small>
-    </p>
+    <iframe id="appFrame" allow="fullscreen"></iframe>
 
     <script>
-        // เอาลิงก์ Web App จาก Google Apps Script มาใส่ที่นี่
-        const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzk7FipApY5DsGWHYZ_DbEbo46ZYchVV1WQPeA_C2o8odx0YaLnMPb1DUw61pl33RE9/exec";
+        const GAS_WEB_APP_URL = "---";
         
-        // เด้งผู้ใช้งานไปที่ลิงก์ของ Google ทันที (แก้ปัญหา Iframe 100%)
-        document.getElementById('gasLink').href = GAS_WEB_APP_URL;
-        window.location.replace(GAS_WEB_APP_URL);
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.has('page')) {
+            urlParams.set('page', 'index');
+        }
+        document.getElementById('appFrame').src = GAS_WEB_APP_URL + "?" + urlParams.toString();
     </script>
 </body>
 </html>
