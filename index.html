@@ -8,8 +8,8 @@
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" sizes="180x180" href="logo.png">
     
-    <meta name="apple-mobile-web-app-title" content="Shipping">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    
     <meta name="theme-color" content="#f3f4f6">
     <style>
         body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #f3f4f6; }
@@ -17,17 +17,20 @@
     </style>
 </head>
 <body>
-    <iframe id="appFrame"></iframe>
+    <iframe id="appFrame" allow="fullscreen"></iframe>
 
     <script>
+        // สำคัญมาก! URL นี้ต้องมาจากการ Deploy เวอร์ชันล่าสุดเท่านั้น
         const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw4h5dgOZjue9DwH035rkn4jjCJ2BXIPGZIkAaxQ_8wCXL4Kj6j1auEJEUL6acmRnli/exec";
         
         const urlParams = new URLSearchParams(window.location.search);
         
+        // ถ้าไม่มี Parameter page ให้ตั้งค่าเริ่มต้นเป็น index
         if (!urlParams.has('page')) {
             urlParams.set('page', 'index');
         }
         
+        // ดึง URL มาแสดงผลใน iframe
         document.getElementById('appFrame').src = GAS_WEB_APP_URL + "?" + urlParams.toString();
     </script>
 </body>
