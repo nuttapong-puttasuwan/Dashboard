@@ -2,40 +2,67 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>กำลังเข้าสู่ Dashboard...</title>
+    
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" sizes="180x180" href="logo.png">
-    
-    <meta name="apple-mobile-web-app-title" content="Dashboard">
-    <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <meta name="theme-color" content="#f3f4f6">
     <style>
-        /* จัดหน้าโหลดระหว่างรอ Redirect */
-        body, html { margin: 0; padding: 0; height: 100%; background-color: #f3f4f6; display: flex; justify-content: center; align-items: center; font-family: sans-serif; }
-        .loader { color: #555; }
+        /* ตกแต่งหน้าโหลดเบาๆ ระหว่างที่ระบบกำลังสลับหน้าเว็บ */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f3f4f6;
+            font-family: 'Sarabun', sans-serif;
+        }
+        .loader-container {
+            text-align: center;
+            color: #4b5563;
+        }
+        .spinner {
+            border: 4px solid #e5e7eb;
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
-    
-    <div class="loader">กำลังพาคุณไปยังหน้า Dashboard...</div>
+
+    <div class="loader-container">
+        <div class="spinner"></div>
+        <h3>กำลังพาเข้าสู่ระบบ...</h3>
+    </div>
 
     <script>
-        const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbymiQNtdftKqCXB1PQJgUr6TpuKmYTs5dVHGWCMo0i8ZDUDGceWIu8ZDTI1yZyDpch3/exec";
-        
-        // อ่านค่า Parameter จาก URL ปัจจุบัน
+        // 1. เอา URL ของ Google Apps Script (ที่ Deploy ล่าสุด) มาวางตรงนี้
+        // หากมีการ Deploy ใหม่ ให้มาเปลี่ยนแค่บรรทัดนี้ใน GitHub
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbymiQNtdftKqCXB1PQJgUr6TpuKmYTs5dVHGWCMo0i8ZDUDGceWIu8ZDTI1yZyDpch3/exec";
+
+        // 2. ดึง Parameter ทั้งหมดจาก URL ของ GitHub (เช่น ?page=addData)
         const urlParams = new URLSearchParams(window.location.search);
-        
-        // ถ้าไม่มีการระบุ page ให้กำหนดค่าเริ่มต้นเป็น index
-        if (!urlParams.has('page')) {
-            urlParams.set('page', 'index');
-        }
-        
-        // สร้าง URL ใหม่และทำการ Redirect ผู้ใช้งานไปที่ GAS โดยตรง (แทนการครอบ iframe)
-        const targetUrl = GAS_WEB_APP_URL + "?" + urlParams.toString();
-        window.location.replace(targetUrl); // ใช้ .replace() เพื่อไม่ให้ผู้ใช้กด Back กลับมาเจอหน้าเปล่านี้ซ้ำ
+        const queryString = urlParams.toString();
+
+        // 3. ประกอบร่าง URL ปลายทาง
+        // ถ้ามี Parameter ต่อท้าย ก็ให้ส่งไปด้วย ถ้าไม่มีก็ไปหน้า Index ปกติ
+        const targetUrl = queryString ? GAS_URL + "?" + queryString : GAS_URL;
+
+        // 4. ทำการ Redirect ไปที่ App Script
+        // ใช้ .replace() เพื่อที่เวลาผู้ใช้กดปุ่ม "ย้อนกลับ (Back)" ในเบราว์เซอร์ จะได้ไม่เด้งกลับมาหน้าโหลดนี้ซ้ำ
+        window.location.replace(targetUrl);
     </script>
+
 </body>
 </html>
