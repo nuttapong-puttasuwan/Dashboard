@@ -46,20 +46,10 @@
     </div>
 
     <script>
-        // 1. เอา URL ของ Google Apps Script (ที่ Deploy ล่าสุด) มาวางตรงนี้
-        // หากมีการ Deploy ใหม่ ให้มาเปลี่ยนแค่บรรทัดนี้ใน GitHub
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbwhPpBz6AZiVi9f1VbUcFhBHPY_fWkujn9QARhRbSl32hoK8etxlrZEosrL9oPVnuDb/exec";
-
-        // 2. ดึง Parameter ทั้งหมดจาก URL ของ GitHub (เช่น ?page=addData)
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbyMd1eOW7e5AQK_8qblmiBeu4e7f_0uCmitlmF-CGom7yNhCkl4rhAbT7K8zpcWcRvC/exec";
         const urlParams = new URLSearchParams(window.location.search);
         const queryString = urlParams.toString();
-
-        // 3. ประกอบร่าง URL ปลายทาง
-        // ถ้ามี Parameter ต่อท้าย ก็ให้ส่งไปด้วย ถ้าไม่มีก็ไปหน้า Index ปกติ
-        const targetUrl = queryString ? GAS_URL + "?" + queryString : GAS_URL;
-
-        // 4. ทำการ Redirect ไปที่ App Script
-        // ใช้ .replace() เพื่อที่เวลาผู้ใช้กดปุ่ม "ย้อนกลับ (Back)" ในเบราว์เซอร์ จะได้ไม่เด้งกลับมาหน้าโหลดนี้ซ้ำ
+        const targetUrl = queryString ? GAS_URL + "?" + queryString : GAS_URL;ำ
         window.location.replace(targetUrl);
     </script>
 
