@@ -42,14 +42,14 @@
 
     <div class="loader-container">
         <div class="spinner"></div>
-        <h3>loading</h3>
+        <h3>ระบบกำลังประมวลผล...</h3>
     </div>
 
     <script>
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbz_SydJfTHyapddkbL3n3axkyVJx6KEmhrKEZtPIeNPTAdJwjc2WDPOJ32mSWEmk2QH/exec";
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbxIZgI0E5CbMksAN-Lsc9H0cHI2pCaNFsPy5yttFPG4ye9DkCFcEXLSMjtPEbtUwxMM/exec";
         const urlParams = new URLSearchParams(window.location.search);
         const queryString = urlParams.toString();
-        const targetUrl = queryString ? GAS_URL + "?" + queryString : GAS_URL;ำ
+        const targetUrl = queryString ? GAS_URL + "?" + queryString : GAS_URL;
         window.location.replace(targetUrl);
     </script>
 
