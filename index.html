@@ -8,25 +8,34 @@
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" sizes="180x180" href="logo.png">
     
-    <meta name="mobile-web-app-capable" content="yes">
-    
+    <meta name="apple-mobile-web-app-title" content="Dashboard">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
     <meta name="theme-color" content="#f3f4f6">
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #f3f4f6; }
-        iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        /* จัดหน้าโหลดระหว่างรอ Redirect */
+        body, html { margin: 0; padding: 0; height: 100%; background-color: #f3f4f6; display: flex; justify-content: center; align-items: center; font-family: sans-serif; }
+        .loader { color: #555; }
     </style>
 </head>
 <body>
-    <iframe id="appFrame" allow="fullscreen"></iframe>
+    
+    <div class="loader">กำลังพาคุณไปยังหน้า Dashboard...</div>
 
     <script>
-        const GAS_WEB_APP_URL = "---";
+        const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbymiQNtdftKqCXB1PQJgUr6TpuKmYTs5dVHGWCMo0i8ZDUDGceWIu8ZDTI1yZyDpch3/exec";
         
+        // อ่านค่า Parameter จาก URL ปัจจุบัน
         const urlParams = new URLSearchParams(window.location.search);
+        
+        // ถ้าไม่มีการระบุ page ให้กำหนดค่าเริ่มต้นเป็น index
         if (!urlParams.has('page')) {
             urlParams.set('page', 'index');
         }
-        document.getElementById('appFrame').src = GAS_WEB_APP_URL + "?" + urlParams.toString();
+        
+        // สร้าง URL ใหม่และทำการ Redirect ผู้ใช้งานไปที่ GAS โดยตรง (แทนการครอบ iframe)
+        const targetUrl = GAS_WEB_APP_URL + "?" + urlParams.toString();
+        window.location.replace(targetUrl); // ใช้ .replace() เพื่อไม่ให้ผู้ใช้กด Back กลับมาเจอหน้าเปล่านี้ซ้ำ
     </script>
 </body>
 </html>
